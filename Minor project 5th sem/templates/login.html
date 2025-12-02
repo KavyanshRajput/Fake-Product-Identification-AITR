@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(120deg, #032d2a 0%, #237399 80%, #21e6c1 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        .login-container {
+            background: rgba(4, 25, 24, 0.95);
+            padding: 34px 28px 24px 28px;
+            border-radius: 18px;
+            box-shadow: 0 8px 36px #000b201c;
+            width: 310px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .login-container h2 {
+            color: #ffffff;
+            letter-spacing: 1px;
+            font-size: 2em;
+            margin-bottom: 23px;
+        }
+        label {
+            color: #eeeeee;
+            margin-bottom: 4px;
+            font-size: 1.07em;
+        }
+        input {
+            width: 100%;
+            padding: 7px 10px;
+            border: none;
+            border-radius: 7px;
+            margin-bottom: 18px;
+            font-size: 1em;
+            background: #324d3257;
+            color: #dbfff4;
+            outline: none;
+        }
+        .btn {
+            padding: 9px 0;
+            background: linear-gradient(90deg, #21e6c1 50%, #14445a 100%);
+            color: #01332a;
+            font-weight: 700;
+            border: none;
+            border-radius: 7px;
+            font-size: 1em;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: linear-gradient(90deg, #14445a 30%, #21e6c1 88%);
+            color: #fff;
+        }
+        .error-msg {
+            background: #1e2b27c2;
+            color: #89c3a6e4;
+            border-radius: 6px;
+            padding: 5px 10px;
+            margin-bottom: 12px;
+            font-size: 0.98em;
+            display: {% if error %}block{% else %}none{% endif %};
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Admin Login</h2>
+        <form method="post" autocomplete="off">
+            <div class="error-msg">{{ error }}</div>
+            <label for="company">Brand / Company Name</label>
+            <input type="text" id="company" name="company" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit" class="btn">Login</button>
+            <a href="{{ url_for('reset_password') }}" style="color:#21e6c1; text-align:right; display:block; margin-top:12px;">Forgot password?</a>
+
+
+        </form>
+    </div>
+</body>
+</html>

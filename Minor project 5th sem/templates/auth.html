@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company Login & Registration</title>
+    <style>
+        body {
+            background: linear-gradient(110deg, #072638 0%, #14445a 90%, #1de9b6 100%);
+            color: #e2fff8;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 48px auto;
+            background: rgba(12,42,36,0.93);
+            border-radius: 16px;
+            box-shadow: 0 6px 24px #052e2b61;
+            padding: 36px 24px 32px 24px;
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+        }
+        .form-section {
+            flex: 1;
+            min-width: 260px;
+            background: rgba(10, 35, 38, 0.8);
+            padding: 18px 16px 22px 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px #052e2b20;
+        }
+        h2 { color: #21e6c1; text-align: center; margin-bottom: 12px; }
+        label { display: block; margin: 12px 0 5px 0; }
+        input[type="text"], input[type="password"] {
+            width: 100%; padding: 8px 10px; border-radius: 7px; border: none;
+            margin-bottom: 12px;
+            background: #09323b; color: #dbfff4;
+            font-size: 1em;
+        }
+        .btn {
+            width: 100%; padding: 9px 0; font-size: 1.07em;
+            font-weight: 700; border-radius: 8px; border: none;
+            background: linear-gradient(90deg, #21e6c1 50%, #14445a 100%);
+            color: #01332a; cursor: pointer;
+        }
+        .btn:hover { background: linear-gradient(90deg, #14445a 30%, #21e6c1 88%); color: #fff; }
+        .error { background: #731f1f; color: #ffd6d6; border-radius: 7px; padding: 7px 10px; margin-bottom: 10px; font-weight: 500;}
+        .msg { background: #164b3f; color: #b5ffeb; border-radius: 7px; padding: 7px 10px; margin-bottom: 10px; font-weight: 500;}
+        @media (max-width: 750px) {
+            .container { flex-direction: column; gap: 10px;}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Login Section -->
+        <div class="form-section">
+            <h2>Login</h2>
+            {% if login_error %}
+                <div class="error">{{ login_error }}</div>
+            {% endif %}
+            <form method="POST" autocomplete="off">
+                <label for="company_login">Company Name</label>
+                <input type="text" id="company_login" name="company_login" required>
+                <label for="password_login">Password</label>
+                <input type="password" id="password_login" name="password_login" required>
+                <button type="submit" name="login_submit" class="btn">Login</button>
+            </form>
+            <a href="{{ url_for('reset_password') }}" style="color:#21e6c1; text-align:right; display:block; margin-top:9px;">Forgot password?</a>
+        </div>
+
+        <!-- Register Section -->
+        <div class="form-section">
+            <h2>Register Company</h2>
+            {% if register_error %}
+                <div class="error">{{ register_error }}</div>
+            {% endif %}
+            {% if register_msg %}
+                <div class="msg">{{ register_msg }}</div>
+            {% endif %}
+            <form method="POST" autocomplete="off">
+                <label for="company_register">Company Name</label>
+                <input type="text" id="company_register" name="company_register" required>
+                <label for="password_register">Password</label>
+                <input type="password" id="password_register" name="password_register" required>
+                <button type="submit" name="register_submit" class="btn">Register</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
