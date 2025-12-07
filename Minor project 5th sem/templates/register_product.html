@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>4REAL Console | Register Product</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Same fonts as other pages -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-gradient-start: #151a3c;
+            --bg-gradient-end: #441d77;
+            --accent: #00f5ff;
+            --accent-soft: rgba(0, 245, 255, 0.18);
+            --card-bg: rgba(10, 12, 30, 0.92);
+            --text-main: #f9fbff;
+            --text-muted: #a7aedc;
+            --border-subtle: rgba(255,255,255,0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text-main);
+            background: radial-gradient(circle at top left, #3b2b82, #050515 45%, #02010a 95%),
+                        linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            background-blend-mode: screen;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.6;
+            animation: float 20s infinite alternate ease-in-out;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .orb-1 { width: 360px; height: 360px; top: -80px; left: -80px; background: #00f5ff; }
+        .orb-2 { width: 440px; height: 440px; bottom: -160px; right: -100px; background: #ff3b6a; animation-delay: 4s; }
+        .orb-3 { width: 260px; height: 260px; top: 55%; left: 50%; background: #7b3cff; transform: translate(-50%, -50%); animation-delay: 8s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, -30px) scale(1.1); }
+        }
+
+        .shell {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 24px 24px 28px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        /* Top bar */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 10px 20px;
+            border-radius: 999px;
+            background: rgba(2, 6, 25, 0.96);
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.7);
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-badge {
+            width: 34px;
+            height: 34px;
+            border-radius: 12px;
+            background: radial-gradient(circle at 20% 0%, rgba(0,245,255,0.9), rgba(0,245,255,0.18));
+            box-shadow: 0 0 20px rgba(0,245,255,0.9);
+            display: grid;
+            place-items: center;
+            font-family: "Poppins", system-ui, sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: #020617;
+        }
+
+        .logo-main {
+            font-family: "Poppins", system-ui, sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .logo-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pill-tag {
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(0,245,255,0.45);
+            background: radial-gradient(circle at top right, var(--accent-soft), rgba(0,0,0,0.7));
+            color: var(--accent);
+            font-size: 11px;
+        }
+
+        .btn-back {
+            padding: 9px 18px;
+            border-radius: 999px;
+            border: none;
+            outline: none;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            background: linear-gradient(135deg, rgba(148,163,255,0.2), rgba(15,23,42,1));
+            color: #e5e7ff;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+        }
+
+        .btn-back:hover {
+            background: linear-gradient(135deg, rgba(148,163,255,0.35), rgba(15,23,42,1));
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(0,0,0,0.8);
+        }
+
+        /* Content layout: form + summary */
+        .content {
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(11,14,38,0.96), rgba(12,20,65,0.96));
+            border-radius: 26px;
+            padding: 22px 22px 20px 22px;
+            box-shadow: 0 22px 50px rgba(0,0,0,0.75);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .card-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .card-title {
+            font-family: "Poppins", system-ui, sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .card-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        form {
+            margin-top: 8px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px 16px;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .field-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 12px;
+            color: rgba(222,225,255,0.9);
+        }
+
+        .input, .textarea {
+            width: 100%;
+            background: rgba(5,10,35,0.95);
+            border-radius: 12px;
+            padding: 10px 12px;
+            border: 1px solid rgba(255,255,255,0.14);
+            color: var(--text-main);
+            font-size: 13px;
+            outline: none;
+            transition: border 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+        }
+
+        .input:focus, .textarea:focus {
+            border-color: rgba(0,245,255,0.8);
+            box-shadow: 0 0 0 1px rgba(0,245,255,0.7);
+            background: rgba(4,10,40,1);
+        }
+
+        .textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .footer-row {
+            margin-top: 8px;
+            grid-column: 1 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            padding: 9px 20px;
+            border-radius: 999px;
+            border: none;
+            outline: none;
+            background: linear-gradient(135deg, #00f5ff, #3a86ff);
+            color: #050816;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.7), 0 0 16px rgba(0,245,255,0.9);
+            transition: transform 0.16s ease, box-shadow 0.16s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 34px rgba(0,0,0,0.8), 0 0 20px rgba(0,245,255,1);
+        }
+
+        .note {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Summary side card */
+        .summary-card {
+            background: linear-gradient(145deg, rgba(6,10,32,0.96), rgba(6,14,48,0.98));
+            border-radius: 24px;
+            padding: 18px 18px 16px 18px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.75);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .summary-title {
+            font-family: "Poppins", system-ui, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .summary-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .summary-list {
+            margin-top: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .summary-item {
+            padding: 8px 10px;
+            border-radius: 14px;
+            background: rgba(11,16,48,0.96);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .summary-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: rgba(184,188,248,0.95);
+        }
+
+        .summary-value {
+            margin-top: 2px;
+        }
+
+        .callout {
+            margin-top: 6px;
+            padding: 8px 10px;
+            border-radius: 14px;
+            background: radial-gradient(circle at top left, rgba(0,245,255,0.25), rgba(1,6,20,0.96));
+            border: 1px solid rgba(0,245,255,0.45);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 900px) {
+            .shell { max-width: 100%; padding: 20px 16px 24px 16px; }
+            .content { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            body { overflow-y: auto; }
+            .topbar { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="shell">
+        <!-- Top bar -->
+        <header class="topbar">
+            <div class="logo-text">
+                <div class="logo-badge">4R</div>
+                <div>
+                    <div class="logo-main">4REAL Console</div>
+                    <div class="logo-sub">Register a new genuine product</div>
+                </div>
+            </div>
+            <div class="top-actions">
+                <div class="pill-tag">Step 1 · Product registration</div>
+                <form method="GET" action="/dashboard">
+                    <button type="submit" class="btn-back">
+                        ← Back to dashboard
+                    </button>
+                </form>
+            </div>
+        </header>
+
+        <!-- Content: form + summary -->
+        <main class="content">
+            <!-- Left: form -->
+            <section class="card">
+                <div class="card-header">
+                    <div class="card-title">Register product & generate QR</div>
+                    <p class="card-sub">
+                        Enter the key product details. 4REAL will store this record and create a unique QR identity
+                        that your customers can scan to verify authenticity.
+                    </p>
+                </div>
+
+                <form method="POST" action="/register-product">
+                    <div class="field-group">
+                        <label for="name">Product name</label>
+                        <input class="input" type="text" id="name" name="name"
+                               placeholder="e.g. Premium Engine Oil 1L" required />
+                    </div>
+
+                    <div class="field-group">
+                        <label for="brand">Brand Name</label>
+                        <input class="input" type="text" id="brand" name="brand"
+                               placeholder="e.g. 4REAL AutoCare" />
+                    </div>
+
+                    <div class="field-group">
+                        <label for="batch">Batch / Lot no.</label>
+                        <input class="input" type="text" id="batch" name="batch"
+                               placeholder="e.g. BATCH-2025-01" />
+                    </div>
+
+                    <div class="field-group">
+                        <label for="category">Category</label>
+                        <input class="input" type="text" id="category" name="category"
+                               placeholder="e.g. Engine oil, Medicine, Cosmetics" />
+                    </div>
+
+                    <div class="field-group full">
+                        <label for="description">Description / notes</label>
+                        <textarea class="textarea" id="description" name="description"
+                                  placeholder="Optional: model, variant, safety notes, manufacturing info, etc."></textarea>
+                    </div>
+
+                    <div class="footer-row">
+                        <button type="submit" class="btn-primary">
+                            Save product & generate QR
+                        </button>
+                        <p class="note">
+                            After saving, you will return to the dashboard where this product appears in the list,
+                            with options to view, edit, delete and open the generated QR.
+                        </p>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Right: live summary / guidance -->
+            <aside class="summary-card">
+                <div>
+                    <div class="summary-title">4REAL registration tips</div>
+                    <p class="summary-sub">
+                        Strong product metadata makes your fake‑product detection more reliable and easier to audit.
+                    </p>
+                </div>
+
+                <div class="summary-list">
+                    <div class="summary-item">
+                        <div class="summary-label">Product name</div>
+                        <div class="summary-value">
+                            Use a clear name + variant (size, flavor, model) so support teams can identify items quickly.
+                        </div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Batch / lot</div>
+                        <div class="summary-value">
+                            Batch numbers help you trace issues and detect if a specific lot is being faked in the market.
+                        </div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Unique code</div>
+                        <div class="summary-value">
+                            Each product gets a unique QR code in the system. If someone copies that code,
+                            scans from a fake item will still be detected.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="callout">
+                    Once this form is submitted, 4REAL generates a QR that points to your verification URL
+                    (for example de>/verify/&lt;product_code&gt;</code>).
+                    When a customer scans it, your Flask app checks this product entry and returns
+                    “Genuine” or “Fake / Not found”.
+                </div>
+            </aside>
+        </main>
+    </div>
+</body>
+</html>

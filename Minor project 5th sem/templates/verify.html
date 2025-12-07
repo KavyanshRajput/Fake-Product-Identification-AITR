@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>4REAL | Verification Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg1: #151a3c;
+            --bg2: #441d77;
+            --accent: #00f5ff;
+            --danger: #ff3b6a;
+            --success: #22c55e;
+            --text-main: #f9fbff;
+            --text-muted: #a7aedc;
+            --border-subtle: rgba(255,255,255,0.14);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            font-family: "DM Sans", system-ui, sans-serif;
+            color: var(--text-main);
+            background: radial-gradient(circle at top left, #3b2b82, #050515 45%, #02010a 95%),
+                        linear-gradient(135deg, var(--bg1), var(--bg2));
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.6;
+            animation: float 20s infinite alternate ease-in-out;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .orb-1 { width: 320px; height: 320px; top: -70px; left: -70px; background: #00f5ff; }
+        .orb-2 { width: 380px; height: 380px; bottom: -140px; right: -90px; background: #ff3b6a; animation-delay: 4s; }
+        .orb-3 { width: 220px; height: 220px; top: 55%; left: 50%; background: #7b3cff; transform: translate(-50%, -50%); animation-delay: 8s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(40px, -30px) scale(1.1); }
+        }
+
+        .shell {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 24px 24px 32px 24px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+            gap: 18px;
+        }
+
+        /* Left: main result */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        .logo-block {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(2, 6, 25, 0.96);
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.7);
+            margin-bottom: 4px;
+        }
+
+        .logo-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 12px;
+            background: radial-gradient(circle at 20% 0%, rgba(0,245,255,0.9), rgba(0,245,255,0.18));
+            box-shadow: 0 0 18px rgba(0,245,255,0.9);
+            display: grid;
+            place-items: center;
+            font-family: "Poppins", system-ui, sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            color: #020617;
+        }
+
+        .logo-main {
+            font-family: "Poppins", system-ui, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .logo-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* 3D status orb centered */
+        .status-orb-container {
+            margin-top: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .status-orb-wrapper {
+            width: 220px;
+            height: 220px;
+            position: relative;
+            perspective: 900px;
+        }
+
+        .status-orb {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #0b1220;
+            font-family: "Poppins", system-ui, sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-size: 11px;
+            overflow: visible;
+            transform-style: preserve-3d;
+            animation: orb-tilt 10s infinite ease-in-out;
+        }
+
+        @keyframes orb-tilt {
+            0%   { transform: rotateX(16deg) rotateY(-18deg); }
+            50%  { transform: rotateX(-10deg) rotateY(14deg); }
+            100% { transform: rotateX(16deg) rotateY(-18deg); }
+        }
+
+        .status-orb::before,
+        .status-orb::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid rgba(0,245,255,0.4);
+            box-shadow:
+                0 0 20px rgba(0,245,255,0.9),
+                0 0 60px rgba(0,245,255,0.6);
+            animation: ring-spin 6s linear infinite;
+        }
+
+        .status-orb::after {
+            inset: 12px;
+            opacity: 0.7;
+            animation-direction: reverse;
+        }
+
+        @keyframes ring-spin {
+            0%   { transform: rotateZ(0deg); }
+            100% { transform: rotateZ(360deg); }
+        }
+
+        .status-orb-label {
+            position: relative;
+            z-index: 2;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 20% 0%, rgba(0,245,255,0.95), rgba(3,7,30,0.98));
+            box-shadow:
+                0 0 30px rgba(0,245,255,1),
+                0 0 80px rgba(0,245,255,0.9);
+        }
+
+        .status-orb.genuine .status-orb-label {
+            background: radial-gradient(circle at 20% 0%, rgba(34,197,94,0.98), rgba(3,7,30,0.98));
+            box-shadow:
+                0 0 30px rgba(34,197,94,1),
+                0 0 80px rgba(34,197,94,0.9);
+        }
+
+        .status-orb.fake .status-orb-label {
+            background: radial-gradient(circle at 20% 0%, rgba(248,113,113,0.98), rgba(3,7,30,0.98));
+            box-shadow:
+                0 0 30px rgba(248,113,113,1),
+                0 0 80px rgba(248,113,113,0.9);
+        }
+
+        .pulse-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1px solid rgba(0,245,255,0.5);
+            opacity: 0;
+            animation: pulse 2.6s infinite ease-out;
+        }
+        .pulse-ring:nth-child(2) { animation-delay: 0.6s; }
+        .pulse-ring:nth-child(3) { animation-delay: 1.2s; }
+
+        @keyframes pulse {
+            0%   { transform: scale(0.7); opacity: 0.7; }
+            100% { transform: scale(1.35); opacity: 0; }
+        }
+
+        .headline {
+            margin-top: 18px;
+            font-family: "Poppins", system-ui, sans-serif;
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        .headline.genuine { color: #bbf7d0; }
+        .headline.fake { color: #fecaca; }
+
+        .headline-sub {
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 520px;
+        }
+
+        .details {
+            margin-top: 18px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .details strong { color: var(--text-main); }
+
+        .details-row { margin-top: 6px; }
+
+        .code-pill {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 11px;
+            border: 1px solid rgba(0,245,255,0.7);
+            color: var(--accent);
+            background: rgba(0,245,255,0.08);
+        }
+
+        .warning-box {
+            margin-top: 16px;
+            padding: 10px 12px;
+            border-radius: 16px;
+            background: rgba(127, 29, 29, 0.8);
+            border: 1px solid rgba(248,113,113,0.9);
+            font-size: 12px;
+            color: #fee2e2;
+        }
+
+        .btn-row {
+            margin-top: 18px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: none;
+            outline: none;
+            background: linear-gradient(135deg, #00f5ff, #3a86ff);
+            color: #050816;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.7), 0 0 16px rgba(0,245,255,0.9);
+            transition: transform 0.16s ease, box-shadow 0.16s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0,245,255,1);
+        }
+
+        .btn-outline {
+            padding: 7px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: transparent;
+            color: var(--text-main);
+            font-size: 11px;
+            cursor: pointer;
+            transition: background 0.16s ease;
+        }
+
+        .btn-outline:hover { background: rgba(255,255,255,0.14); }
+
+        /* Right: info box */
+        .right-panel { display: flex; align-items: center; }
+
+        .info-card {
+            width: 100%;
+            background: rgba(6,10,40,0.96);
+            border-radius: 22px;
+            padding: 18px 18px 16px 18px;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.8);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .info-title {
+            font-family: "Poppins", system-ui, sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .info-list {
+            margin-top: 6px;
+            padding-left: 14px;
+        }
+
+        .info-list li { margin-bottom: 4px; }
+
+        @media (max-width: 900px) {
+            .shell {
+                grid-template-columns: 1fr;
+                padding: 20px 16px 24px 16px;
+            }
+            body { overflow-y: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="shell">
+        <!-- LEFT: result -->
+        <section class="left-panel">
+            <div class="logo-block">
+                <div class="logo-badge">4R</div>
+                <div>
+                    <div class="logo-main">4REAL Verification</div>
+                    <div class="logo-sub">QR-based fake product authentication</div>
+                </div>
+            </div>
+
+            <!-- animated status orb, centered -->
+            <div class="status-orb-container">
+                <div class="status-orb-wrapper">
+                    <div class="pulse-ring"></div>
+                    <div class="pulse-ring"></div>
+                    <div class="pulse-ring"></div>
+                    {% if status == 'genuine' %}
+                    <div class="status-orb genuine">
+                        <div class="status-orb-label">GENUINE</div>
+                    </div>
+                    {% else %}
+                    <div class="status-orb fake">
+                        <div class="status-orb-label">NOT VERIFIED</div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if status == 'genuine' %}
+                <h1 class="headline genuine">This product is verified as genuine.</h1>
+                <p class="headline-sub">
+                    The code you scanned is registered in the official 4REAL database and belongs to an approved product from this brand.
+                </p>
+
+                {% if product %}
+                <div class="details">
+                    <div class="details-row"><strong>{{ product.name }}</strong></div>
+                    {% if product.brand %}<div class="details-row">Brand: {{ product.brand }}</div>{% endif %}
+                    {% if product.batch %}<div class="details-row">Batch: {{ product.batch }}</div>{% endif %}
+                    {% if product.category %}<div class="details-row">Category: {{ product.category }}</div>{% endif %}
+                    <div class="code-pill">Secure code: {{ product.code }}</div>
+                </div>
+                {% endif %}
+
+                <p class="headline-sub" style="margin-top:14px;">
+                    Keep this product and its packaging safe. If you ever see the same code on a different item,
+                    report it to the brand immediately.
+                </p>
+            {% else %}
+                <h1 class="headline fake">This code is not recognized as genuine.</h1>
+                <p class="headline-sub">
+                    The scanned code does not match any genuine 4REAL record. The item may be fake, diverted,
+                    or not yet registered by the brand.
+                </p>
+
+                <div class="warning-box">
+                    Do not consume or use this product until the brand confirms it. Compare the packaging with
+                    an item bought from an authorized store and contact customer support with photos and the code.
+                </div>
+            {% endif %}
+
+            <div class="btn-row">
+                <button class="btn-primary" onclick="location.reload()">Scan another product</button>
+                <button class="btn-outline" onclick="window.close()">Close</button>
+            </div>
+        </section>
+
+        <!-- RIGHT: info -->
+        <aside class="right-panel">
+            <div class="info-card">
+                <div class="info-title">What does this check do?</div>
+                <ul class="info-list">
+                    <li>Each genuine item receives a unique 4REAL code linked to the brand’s secure database.</li>
+                    <li>When you scan, this page connects to the backend and validates that exact code.</li>
+                    <li>“Genuine” means the code exists, is active, and matches a real product record.</li>
+                    <li>“Not verified” means the code is missing, invalid, or possibly copied from another unit.</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>
